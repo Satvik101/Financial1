@@ -10,8 +10,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="20dp"
-        android:paddingBottom="80dp">
+        android:paddingHorizontal="16dp"
+        android:paddingTop="14dp"
+        android:paddingBottom="24dp">
 
         <!-- Header -->
         <LinearLayout
@@ -19,7 +20,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:layout_marginBottom="16dp">
+            android:layout_marginBottom="12dp">
 
             <TextView
                 android:id="@+id/tvTitle"
@@ -27,17 +28,19 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Calculator"
-                android:textSize="28sp"
-                android:fontFamily="sans-serif-black"
-                android:textColor="@color/text_primary" />
+                android:textSize="20sp"
+                android:fontFamily="sans-serif-medium"
+                android:textColor="@color/text_primary"
+                android:letterSpacing="-0.02" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnInfo"
                 style="@style/Widget.Material3.Button.IconButton"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 app:icon="@android:drawable/ic_menu_info_details"
-                app:iconTint="@color/text_secondary"
+                app:iconTint="@color/text_hint"
+                app:iconSize="18dp"
                 android:contentDescription="Info" />
         </LinearLayout>
 
@@ -46,7 +49,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/Widget.FinCalc.Card"
-            android:layout_marginBottom="20dp">
+            android:layout_marginBottom="14dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -58,7 +61,7 @@
                     android:id="@+id/chipPeriod"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
+                    android:layout_marginBottom="10dp"
                     app:singleSelection="true"
                     app:selectionRequired="true">
 
@@ -66,14 +69,16 @@
                         android:id="@+id/chipMonths"
                         style="@style/Widget.Material3.Chip.Filter"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="32dp"
+                        android:textSize="12sp"
                         android:text="Months" />
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chipYears"
                         style="@style/Widget.Material3.Chip.Filter"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="32dp"
+                        android:textSize="12sp"
                         android:checked="true"
                         android:text="Years" />
                 </com.google.android.material.chip.ChipGroup>
@@ -84,7 +89,7 @@
                     style="@style/Widget.FinCalc.TextInputLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp"
+                    android:layout_marginBottom="8dp"
                     android:hint="Compounding Frequency">
 
                     <AutoCompleteTextView
@@ -92,7 +97,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="none"
-                        android:padding="16dp"/>
+                        android:textSize="14sp"
+                        android:padding="12dp"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -100,7 +106,7 @@
                     style="@style/Widget.FinCalc.TextInputLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp"
+                    android:layout_marginBottom="8dp"
                     android:hint="Age Group">
 
                     <AutoCompleteTextView
@@ -108,21 +114,23 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="none"
-                        android:padding="16dp"/>
+                        android:textSize="14sp"
+                        android:padding="12dp"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <!-- Dynamic Inputs (A-H) -->
+                <!-- Dynamic Inputs (A-H) - Compact -->
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/tilA"
                     style="@style/Widget.FinCalc.TextInputLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp"
+                    android:layout_marginBottom="8dp"
                     android:hint="Input A">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etA"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:textSize="14sp"
                         android:inputType="numberDecimal" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -131,12 +139,13 @@
                     style="@style/Widget.FinCalc.TextInputLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp"
+                    android:layout_marginBottom="8dp"
                     android:hint="Input B">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etB"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:textSize="14sp"
                         android:inputType="numberDecimal" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -145,12 +154,13 @@
                     style="@style/Widget.FinCalc.TextInputLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp"
+                    android:layout_marginBottom="8dp"
                     android:hint="Input C">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etC"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:textSize="14sp"
                         android:inputType="numberDecimal" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -159,13 +169,14 @@
                     style="@style/Widget.FinCalc.TextInputLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp"
+                    android:layout_marginBottom="8dp"
                     android:visibility="gone"
                     android:hint="Input D">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etD"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:textSize="14sp"
                         android:inputType="numberDecimal" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -174,13 +185,14 @@
                     style="@style/Widget.FinCalc.TextInputLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp"
+                    android:layout_marginBottom="8dp"
                     android:visibility="gone"
                     android:hint="Input E">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etE"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:textSize="14sp"
                         android:inputType="numberDecimal" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -189,13 +201,14 @@
                     style="@style/Widget.FinCalc.TextInputLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp"
+                    android:layout_marginBottom="8dp"
                     android:visibility="gone"
                     android:hint="Input F">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etF"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:textSize="14sp"
                         android:inputType="numberDecimal" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -204,13 +217,14 @@
                     style="@style/Widget.FinCalc.TextInputLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp"
+                    android:layout_marginBottom="8dp"
                     android:visibility="gone"
                     android:hint="Input G">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etG"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:textSize="14sp"
                         android:inputType="numberDecimal" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -219,31 +233,33 @@
                     style="@style/Widget.FinCalc.TextInputLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp"
+                    android:layout_marginBottom="8dp"
                     android:visibility="gone"
                     android:hint="Input H">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etH"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:textSize="14sp"
                         android:inputType="numberDecimal" />
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <!-- Tip Controls Legacy -->
+                <!-- Tip Controls -->
                 <LinearLayout
                     android:id="@+id/layoutTipControls"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:visibility="gone"
-                    android:layout_marginTop="8dp">
+                    android:layout_marginTop="4dp">
 
                     <TextView
                         android:id="@+id/tvTipValue"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Tip: 15%"
-                        style="@style/TextAppearance.FinCalc.Body"/>
+                        android:textSize="13sp"
+                        android:textColor="@color/text_secondary"/>
 
                     <com.google.android.material.slider.Slider
                         android:id="@+id/sliderTip"
@@ -251,8 +267,10 @@
                         android:layout_height="wrap_content"
                         android:valueFrom="0"
                         android:valueTo="30"
-                        android:value="15" />
-                    
+                        android:value="15"
+                        app:trackColorActive="@color/secondary"
+                        app:thumbColor="@color/secondary" />
+
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -261,63 +279,67 @@
                             android:id="@+id/btnTip10"
                             style="@style/Widget.Material3.Button.OutlinedButton"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="36dp"
+                            android:textSize="12sp"
                             android:text="10%"/>
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/btnTip15"
                             style="@style/Widget.Material3.Button.TonalButton"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
+                            android:layout_height="36dp"
+                            android:layout_marginStart="6dp"
+                            android:textSize="12sp"
                             android:text="15%"/>
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/btnTip18"
                             style="@style/Widget.Material3.Button.OutlinedButton"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
+                            android:layout_height="36dp"
+                            android:layout_marginStart="6dp"
+                            android:textSize="12sp"
                             android:text="18%"/>
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/btnTip20"
                             style="@style/Widget.Material3.Button.OutlinedButton"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
+                            android:layout_height="36dp"
+                            android:layout_marginStart="6dp"
+                            android:textSize="12sp"
                             android:text="20%"/>
                     </LinearLayout>
-                     <LinearLayout
+
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
+                        android:layout_marginTop="8dp"
                         android:orientation="horizontal"
                         android:gravity="center_vertical">
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/btnPeopleMinus"
                             style="@style/Widget.Material3.Button.IconButton.Filled.Tonal"
-                            android:layout_width="48dp"
-                            android:layout_height="48dp"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
                             android:text="-"
-                            android:textSize="20sp"/>
+                            android:textSize="16sp"/>
 
                         <TextView
                             android:id="@+id/tvPeople"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="1"
-                            android:textSize="18sp"
+                            android:textSize="15sp"
                             android:textStyle="bold"
-                            android:layout_marginHorizontal="16dp"/>
+                            android:layout_marginHorizontal="14dp"/>
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/btnPeoplePlus"
                             style="@style/Widget.Material3.Button.IconButton.Filled.Tonal"
-                            android:layout_width="48dp"
-                            android:layout_height="48dp"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
                             android:text="+"
-                            android:textSize="20sp"/>
+                            android:textSize="16sp"/>
                     </LinearLayout>
-
                 </LinearLayout>
 
                 <com.google.android.material.button.MaterialButton
@@ -325,14 +347,15 @@
                     style="@style/Widget.FinCalc.Button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
+                    android:layout_marginTop="14dp"
                     android:text="Calculate" />
-                
+
                 <com.google.android.material.switchmaterial.SwitchMaterial
                     android:id="@+id/switchCompare"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
+                    android:layout_marginTop="8dp"
+                    android:textSize="13sp"
                     android:text="Enable What-If Comparison" />
 
                 <com.google.android.material.button.MaterialButton
@@ -340,37 +363,40 @@
                     style="@style/Widget.Material3.Button.TonalButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="6dp"
+                    android:textSize="13sp"
                     android:text="Open Comparison"
                     android:visibility="gone" />
 
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- Results Section -->
+        <!-- Results Card - Premium Dark -->
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cvResult"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="24dp"
-            app:cardElevation="8dp"
-            app:cardBackgroundColor="@color/primary"
-            android:layout_marginBottom="24dp">
-            
+            app:cardCornerRadius="16dp"
+            app:cardElevation="0dp"
+            app:cardBackgroundColor="@color/result_card_bg"
+            app:strokeWidth="0dp"
+            android:layout_marginBottom="14dp">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="24dp">
+                android:padding="18dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Total Amount"
-                    android:textColor="#CCFFFFFF"
-                    android:textSize="14sp"
+                    android:text="RESULT"
+                    android:textColor="#80FFFFFF"
+                    android:textSize="11sp"
                     android:textAllCaps="true"
-                    android:letterSpacing="0.1" />
+                    android:letterSpacing="0.15"
+                    android:fontFamily="sans-serif-medium" />
 
                 <TextView
                     android:id="@+id/tvResult"
@@ -378,95 +404,106 @@
                     android:layout_height="wrap_content"
                     android:text="₹ 0"
                     android:textColor="@color/white"
-                    android:textSize="36sp"
-                    android:textStyle="bold"
-                    android:layout_marginTop="8dp"/>
-                
+                    android:textSize="26sp"
+                    android:fontFamily="sans-serif-medium"
+                    android:letterSpacing="-0.02"
+                    android:layout_marginTop="6dp"/>
+
                 <TextView
                     android:id="@+id/tvBreakdown"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text=""
-                    android:textColor="#EEFFFFFF"
-                    android:textSize="14sp"
-                    android:layout_marginTop="4dp"/>
-                
+                    android:textColor="#CCFFFFFF"
+                    android:textSize="13sp"
+                    android:layout_marginTop="4dp"
+                    android:lineSpacingMultiplier="1.3"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#1AFFFFFF"
+                    android:layout_marginVertical="12dp" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="20dp">
-                    
+                    android:orientation="horizontal">
+
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnSave"
                         style="@style/Widget.Material3.Button.IconButton"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="36dp"
                         app:icon="@android:drawable/ic_menu_save"
-                        app:iconTint="@color/white"
+                        app:iconTint="#CCFFFFFF"
+                        app:iconSize="18dp"
                         android:contentDescription="Save"/>
-                    
+
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnShare"
                         style="@style/Widget.Material3.Button.IconButton"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="36dp"
                         app:icon="@android:drawable/ic_menu_share"
-                        app:iconTint="@color/white"
+                        app:iconTint="#CCFFFFFF"
+                        app:iconSize="18dp"
                         android:contentDescription="Share"/>
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnPdf"
-                         style="@style/Widget.Material3.Button.IconButton"
+                        style="@style/Widget.Material3.Button.IconButton"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="36dp"
                         app:icon="@android:drawable/ic_menu_upload"
-                        app:iconTint="@color/white"
+                        app:iconTint="#CCFFFFFF"
+                        app:iconSize="18dp"
                         android:contentDescription="PDF"/>
                 </LinearLayout>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- Charts & Table -->
+        <!-- Charts & Table Card -->
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/Widget.FinCalc.Card"
-            android:layout_marginBottom="16dp">
-            
+            android:layout_marginBottom="14dp">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <TextView
-                     android:id="@+id/tvTableTitle"
-                     style="@style/TextAppearance.FinCalc.Headline"
-                     android:layout_width="wrap_content"
-                     android:layout_height="wrap_content"
-                     android:text="Analysis"
-                     android:textSize="18sp"
-                     android:layout_marginBottom="16dp"
-                     android:visibility="gone"/>
+                    android:id="@+id/tvTableTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Analysis"
+                    android:textSize="15sp"
+                    android:fontFamily="sans-serif-medium"
+                    android:textColor="@color/text_primary"
+                    android:layout_marginBottom="12dp"
+                    android:visibility="gone"/>
 
                 <com.github.mikephil.charting.charts.PieChart
                     android:id="@+id/pieChart"
                     android:layout_width="match_parent"
-                    android:layout_height="250dp" 
-                    android:layout_marginBottom="16dp"/>
+                    android:layout_height="200dp"
+                    android:layout_marginBottom="12dp"/>
 
                 <com.github.mikephil.charting.charts.LineChart
                     android:id="@+id/lineChart"
                     android:layout_width="match_parent"
-                    android:layout_height="250dp"
-                    android:layout_marginBottom="16dp" 
+                    android:layout_height="200dp"
+                    android:layout_marginBottom="12dp"
                     android:visibility="gone"/>
 
                 <com.github.mikephil.charting.charts.BarChart
                     android:id="@+id/barChart"
                     android:layout_width="match_parent"
-                    android:layout_height="250dp"
-                    android:layout_marginBottom="16dp" 
+                    android:layout_height="200dp"
+                    android:layout_marginBottom="12dp"
                     android:visibility="gone"/>
 
                 <androidx.recyclerview.widget.RecyclerView

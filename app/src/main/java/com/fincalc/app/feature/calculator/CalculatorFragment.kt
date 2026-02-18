@@ -152,38 +152,81 @@ class CalculatorFragment : BaseFragment(R.layout.fragment_calculator) {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.chartPairs.collect { pairs ->
                 if (pairs.isEmpty()) {
+                    binding.lineChart.visibility = View.GONE
                     binding.lineChart.clear()
                     return@collect
                 }
+                binding.lineChart.visibility = View.VISIBLE
                 val entries = pairs.map { Entry(it.first, it.second) }
+                val chartPrimary = Color.parseColor("#6366F1")
+                val chartText = Color.parseColor("#94A3B8")
                 val dataSet = LineDataSet(entries, calculatorType.title).apply {
-                    color = Color.parseColor("#1A73E8")
-                    valueTextColor = Color.WHITE
+                    color = chartPrimary
+                    valueTextColor = chartText
+                    valueTextSize = 10f
                     lineWidth = 2f
-                    setCircleColor(Color.parseColor("#34A853"))
+                    setCircleColor(chartPrimary)
+                    circleRadius = 3f
+                    setDrawCircleHole(true)
+                    circleHoleRadius = 1.5f
+                    setDrawFilled(true)
+                    fillColor = chartPrimary
+                    fillAlpha = 20
+                    mode = LineDataSet.Mode.CUBIC_BEZIER
+                    setDrawHighlightIndicators(false)
                 }
                 binding.lineChart.data = LineData(dataSet)
                 binding.lineChart.description.isEnabled = false
                 binding.lineChart.setPinchZoom(true)
-                binding.lineChart.isDoubleTapToZoomEnabled = true
+                binding.lineChart.isDoubleTapToZoomEnabled = false
                 binding.lineChart.isHighlightPerTapEnabled = true
+                binding.lineChart.xAxis.granularity = 1f
+                binding.lineChart.xAxis.textColor = chartText
+                binding.lineChart.xAxis.textSize = 10f
+                binding.lineChart.xAxis.setDrawGridLines(false)
+                binding.lineChart.axisLeft.textColor = chartText
+                binding.lineChart.axisLeft.textSize = 10f
+                binding.lineChart.axisLeft.gridColor = Color.parseColor("#E2E8F0")
+                binding.lineChart.axisLeft.gridLineWidth = 0.5f
+                binding.lineChart.axisRight.isEnabled = false
+                binding.lineChart.legend.textColor = chartText
+                binding.lineChart.legend.textSize = 11f
+                binding.lineChart.setExtraOffsets(8f, 12f, 8f, 8f)
+                binding.lineChart.animateX(600)
                 binding.lineChart.invalidate()
             }
         }
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.pieParts.collect { parts ->
                 if (parts.isEmpty()) {
+                    binding.pieChart.visibility = View.GONE
                     binding.pieChart.clear()
                     return@collect
                 }
+                binding.pieChart.visibility = View.VISIBLE
                 val entries = parts.map { PieEntry(it.second, it.first) }
-                val dataSet = PieDataSet(entries, "Split").apply {
-                    colors = listOf(Color.parseColor("#1A73E8"), Color.parseColor("#34A853"), Color.parseColor("#EA4335"))
+                val pieText = Color.parseColor("#94A3B8")
+                val dataSet = PieDataSet(entries, "").apply {
+                    colors = listOf(Color.parseColor("#6366F1"), Color.parseColor("#10B981"), Color.parseColor("#F43F5E"), Color.parseColor("#F59E0B"))
+                    valueTextColor = Color.WHITE
+                    valueTextSize = 11f
+                    sliceSpace = 3f
+                    selectionShift = 6f
                 }
                 binding.pieChart.data = PieData(dataSet)
                 binding.pieChart.description.isEnabled = false
                 binding.pieChart.isRotationEnabled = true
                 binding.pieChart.isHighlightPerTapEnabled = true
+                binding.pieChart.setUsePercentValues(false)
+                binding.pieChart.setHoleColor(Color.TRANSPARENT)
+                binding.pieChart.holeRadius = 50f
+                binding.pieChart.transparentCircleRadius = 53f
+                binding.pieChart.setEntryLabelColor(Color.WHITE)
+                binding.pieChart.setEntryLabelTextSize(10f)
+                binding.pieChart.legend.textColor = pieText
+                binding.pieChart.legend.textSize = 11f
+                binding.pieChart.setExtraOffsets(4f, 4f, 4f, 4f)
+                binding.pieChart.animateY(600)
                 binding.pieChart.invalidate()
             }
         }
@@ -231,8 +274,21 @@ class CalculatorFragment : BaseFragment(R.layout.fragment_calculator) {
         val useIndian = app.appModule.preferences.numberFormatIndian
         val inputViews = listOf(binding.etA, binding.etB, binding.etC, binding.etD, binding.etE, binding.etF, binding.etG, binding.etH)
         fields.forEachIndexed { index, (til, _) ->
-            if (til.visibility == View.VISIBLE && config.hints.getOrNull(index)?.contains("Age") != true) {
-                inputViews[index].addTextChangedListener(CurrencyTextWatcher(inputViews[index], useIndian))
+            if (til.visibility == View.VISIBLE) {
+                val hint = config.hints.getOrNull(index).orEmpty()
+                val isAmountField = hint.contains("₹") || hint.contains("Amount") ||
+                    hint.contains("SIP") || hint.contains("Lumpsum") ||
+                    hint.contains("Loan") || hint.contains("Deposit") ||
+                    hint.contains("Income") || hint.contains("Expense") ||
+                    hint.contains("Investment") || hint.contains("Savings") ||
+                    hint.contains("Principal") || hint.contains("Bill") ||
+                    hint.contains("Value") || hint.contains("Target")
+                val isNotSpecialField = !hint.contains("Age") && !hint.contains("Rate") &&
+                    !hint.contains("%") && !hint.contains("Year") && !hint.contains("Time") &&
+                    !hint.contains("Tenure") && !hint.contains("SWR")
+                if (isAmountField || isNotSpecialField) {
+                    inputViews[index].addTextChangedListener(CurrencyTextWatcher(inputViews[index], useIndian))
+                }
             }
             inputViews[index].addTextChangedListener(object : android.text.TextWatcher {
                 override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit

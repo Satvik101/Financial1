@@ -33,11 +33,13 @@ object FormulaEngine {
         periodYears: Double,
         compoundsPerYear: Int
     ): CompoundInterestResult {
+        val safeCompounds = compoundsPerYear.coerceAtLeast(1)
+        val safePeriod = periodYears.coerceAtLeast(0.0)
         val r = annualRatePercent / 100.0
-        val maturity = principal * (1 + r / compoundsPerYear).pow(compoundsPerYear * periodYears)
+        val maturity = principal * (1 + r / safeCompounds).pow(safeCompounds * safePeriod)
         val interest = maturity - principal
-        val yearly = (1..periodYears.toInt().coerceAtLeast(1)).map { year ->
-            val value = principal * (1 + r / compoundsPerYear).pow(compoundsPerYear * year.toDouble())
+        val yearly = (1..safePeriod.toInt().coerceAtLeast(1)).map { year ->
+            val value = principal * (1 + r / safeCompounds).pow(safeCompounds * year.toDouble())
             YearlyGrowth(year = year, invested = principal, value = value)
         }
         return CompoundInterestResult(principal, maturity, interest, yearly)
@@ -48,16 +50,11 @@ object FormulaEngine {
         annualRatePercent: Double,
         totalMonths: Int
     ): SipResult {
-        val r = (annualRatePercent / 100.0) / 12.0
-        val n = totalMonths.toDouble()
-        val fv = if (r == 0.0) {
-            monthlyInvestment * totalMonths
-        } else {
-            monthlyInvestment * (((1 + r).pow(n) - 1) / r) * (1 + r)
-        }
-        val invested = monthlyInvestment * totalMonths
+        val safeMonths = totalMonths.coerceAtLeast(1)
+        val fv = sipFutureValue(monthlyInvestment, annualRatePercent, safeMonths)
+        val invested = monthlyInvestment * safeMonths
         val returns = fv - invested
-        val yearly = yearlySipGrowth(monthlyInvestment, annualRatePercent, totalMonths)
+        val yearly = yearlySipGrowth(monthlyInvestment, annualRatePercent, safeMonths)
         return SipResult(invested, returns, fv, yearly)
     }
 
@@ -171,8 +168,9 @@ object FormulaEngine {
         annualRatePercent: Double,
         totalMonths: Int
     ): EmiResult {
+        val safeMonths = totalMonths.coerceAtLeast(1)
         val r = annualRatePercent / 1200.0
-        val n = totalMonths.toDouble()
+        val n = safeMonths.toDouble()
         val emi = if (r == 0.0) loanAmount / n else {
             loanAmount * r * (1 + r).pow(n) / ((1 + r).pow(n) - 1)
         }
@@ -180,7 +178,7 @@ object FormulaEngine {
         var balance = loanAmount
         var totalInterest = 0.0
         val schedule = mutableListOf<AmortizationRow>()
-        for (month in 1..totalMonths) {
+        for (month in 1..safeMonths) {
             val interest = balance * r
             val principal = emi - interest
             balance = (balance - principal).coerceAtLeast(0.0)
@@ -190,7 +188,7 @@ object FormulaEngine {
         return EmiResult(
             monthlyEmi = emi,
             totalInterest = totalInterest,
-            totalPayment = emi * totalMonths,
+            totalPayment = emi * safeMonths,
             amortizationSchedule = schedule
         )
     }
@@ -222,15 +220,16 @@ object FormulaEngine {
         annualRatePercent: Double,
         totalMonths: Int
     ): SavingsGoalResult {
+        val safeMonths = totalMonths.coerceAtLeast(1)
         val monthlyRate = annualRatePercent / 1200.0
-        val n = totalMonths.toDouble()
+        val n = safeMonths.toDouble()
         val monthly = if (monthlyRate == 0.0) {
-            targetAmount / totalMonths
+            targetAmount / safeMonths
         } else {
             targetAmount / ((((1 + monthlyRate).pow(n) - 1) / monthlyRate) * (1 + monthlyRate))
         }
         val lumpsum = targetAmount / (1 + monthlyRate).pow(n)
-        val yearly = (1..(totalMonths / 12).coerceAtLeast(1)).map { year ->
+        val yearly = (1..(safeMonths / 12).coerceAtLeast(1)).map { year ->
             val months = year * 12
             val value = sip(monthly, annualRatePercent, months).totalValue
             YearlyGrowth(year, monthly * months, value)
@@ -378,7 +377,7 @@ object FormulaEngine {
         years: Double,
         compoundsPerYear: Int
     ): FdResult {
-        val ci = compoundInterest(deposit, annualRatePercent, years, compoundsPerYear)
+        val ci = compoundInterest(deposit, annualRatePercent, years.coerceAtLeast(0.0), compoundsPerYear.coerceAtLeast(1))
         return FdResult(ci.maturityAmount, ci.totalInterest, ci.yearlyGrowth)
     }
 
@@ -412,21 +411,43 @@ object FormulaEngine {
         finalValue: Double,
         years: Int
     ): CagrResult {
-        val cagr = (finalValue / initialValue).pow(1.0 / years) - 1
-        val absReturn = ((finalValue - initialValue) / initialValue) * 100
-        val yearly = (0..years).map { y ->
-            val value = initialValue * (1 + cagr).pow(y.toDouble())
-            YearlyGrowth(y, initialValue, value)
+        val safeYears = years.coerceAtLeast(1)
+        val safeInitial = initialValue.coerceAtLeast(0.01)
+        val safeFinal = finalValue.coerceAtLeast(0.0)
+        val ratio = safeFinal / safeInitial
+        val cagr = if (ratio <= 0.0) 0.0 else ratio.pow(1.0 / safeYears) - 1
+        val absReturn = ((safeFinal - safeInitial) / safeInitial) * 100
+        val yearly = (0..safeYears).map { y ->
+            val value = safeInitial * (1 + cagr).pow(y.toDouble())
+            YearlyGrowth(y, safeInitial, if (value.isNaN() || value.isInfinite()) 0.0 else value)
         }
-        return CagrResult(cagr * 100, absReturn, yearly)
+        return CagrResult(
+            if (cagr.isNaN() || cagr.isInfinite()) 0.0 else cagr * 100,
+            if (absReturn.isNaN() || absReturn.isInfinite()) 0.0 else absReturn,
+            yearly
+        )
     }
 
     private fun yearlySipGrowth(monthly: Double, annualRatePercent: Double, totalMonths: Int): List<YearlyGrowth> {
-        val years = max(1, totalMonths / 12)
+        val safeMonths = totalMonths.coerceAtLeast(1)
+        val years = max(1, safeMonths / 12)
         return (1..years).map { year ->
             val months = year * 12
-            val result = sip(monthly, annualRatePercent, months)
-            YearlyGrowth(year, result.investedAmount, result.totalValue)
+            val boundedMonths = minOf(months, safeMonths)
+            val invested = monthly * boundedMonths
+            val value = sipFutureValue(monthly, annualRatePercent, boundedMonths)
+            YearlyGrowth(year, invested, value)
+        }
+    }
+
+    private fun sipFutureValue(monthlyInvestment: Double, annualRatePercent: Double, totalMonths: Int): Double {
+        val safeMonths = totalMonths.coerceAtLeast(1)
+        val monthlyRate = (annualRatePercent / 100.0) / 12.0
+        val months = safeMonths.toDouble()
+        return if (monthlyRate == 0.0) {
+            monthlyInvestment * safeMonths
+        } else {
+            monthlyInvestment * (((1 + monthlyRate).pow(months) - 1) / monthlyRate) * (1 + monthlyRate)
         }
     }
 

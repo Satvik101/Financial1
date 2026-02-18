@@ -43,7 +43,8 @@ class GoalsFragment : BaseFragment(R.layout.fragment_goals) {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.goals.collect {
                 adapter.submitList(it)
-                binding.tvEmptyGoals.visibility = if (it.isEmpty()) View.VISIBLE else View.GONE
+                binding.layoutEmpty.visibility = if (it.isEmpty()) View.VISIBLE else View.GONE
+                binding.rvGoals.visibility = if (it.isEmpty()) View.GONE else View.VISIBLE
             }
         }
     }

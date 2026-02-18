@@ -19,16 +19,23 @@ class CurrencyTextWatcher(
         if (selfChange) return
         val raw = editable?.toString()?.replace(",", "")?.trim().orEmpty()
         if (raw.isEmpty()) return
-        val number = raw.toLongOrNull() ?: return
+
+        // Preserve decimal part if user is typing a decimal number
+        val hasDecimal = raw.contains(".")
+        val parts = raw.split(".")
+        val wholePart = parts[0].toLongOrNull() ?: return
+        val decimalPart = if (hasDecimal && parts.size > 1) parts[1] else ""
 
         val formatted = if (indianFormat) {
-            NumberFormatter.formatIndian(number.toDouble())
+            NumberFormatter.formatIndian(wholePart.toDouble())
         } else {
-            NumberFormatter.formatInternational(number.toDouble())
+            NumberFormatter.formatInternational(wholePart.toDouble())
         }
+
+        val finalText = if (hasDecimal) "$formatted.$decimalPart" else formatted
         selfChange = true
-        editText.setText(formatted)
-        editText.setSelection(formatted.length)
+        editText.setText(finalText)
+        editText.setSelection(finalText.length)
         selfChange = false
     }
 }

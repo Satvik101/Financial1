@@ -9,55 +9,62 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="20dp"
-        android:paddingBottom="80dp">
+        android:paddingHorizontal="16dp"
+        android:paddingTop="14dp"
+        android:paddingBottom="72dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Settings"
-            android:fontFamily="sans-serif-black"
-            android:textSize="32sp"
+            android:fontFamily="sans-serif-medium"
+            android:textSize="22sp"
+            android:letterSpacing="-0.02"
             android:textColor="@color/text_primary"
-            android:layout_marginBottom="24dp"/>
+            android:layout_marginBottom="16dp"/>
 
         <!-- Premium Upsell Card -->
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/Widget.FinCalc.Card"
-            app:cardBackgroundColor="@color/primary"
-            android:layout_marginBottom="24dp">
+            app:cardCornerRadius="14dp"
+            app:cardElevation="0dp"
+            app:cardBackgroundColor="@color/result_card_bg"
+            app:strokeWidth="0dp"
+            android:layout_marginBottom="18dp">
             
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:padding="16dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="FinCalc Premium"
                     android:textColor="@color/white"
-                    android:textStyle="bold"
-                    android:textSize="20sp"/>
+                    android:fontFamily="sans-serif-medium"
+                    android:textSize="17sp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Unlock advanced charts, ad-free experience, and cloud sync."
-                    android:textColor="#EEFFFFFF"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="16dp"/>
+                    android:textColor="#CCFFFFFF"
+                    android:textSize="13sp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="14dp"/>
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnPremium"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="42dp"
                     android:text="Upgrade Now"
+                    android:textSize="13sp"
                     android:textColor="@color/primary"
                     android:backgroundTint="@color/white"
-                    app:cornerRadius="12dp"/>
+                    app:cornerRadius="10dp"/>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 

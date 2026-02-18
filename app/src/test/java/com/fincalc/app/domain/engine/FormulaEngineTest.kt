@@ -1,6 +1,7 @@
 package com.fincalc.app.domain.engine
 
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
@@ -31,5 +32,30 @@ class FormulaEngineTest {
         val result = FormulaEngine.cagr(100000.0, 200000.0, 5)
         assertTrue(result.cagr > 0.0)
         assertEquals(5, result.yearlyGrowth.last().year)
+    }
+
+    @Test
+    fun `sip yearly growth is finite and non-empty`() {
+        val result = FormulaEngine.sip(10000.0, 12.0, 180)
+        assertTrue(result.yearlyGrowth.isNotEmpty())
+        assertFalse(result.totalValue.isNaN())
+        assertFalse(result.totalValue.isInfinite())
+        assertTrue(result.yearlyGrowth.all { it.value.isFinite() })
+    }
+
+    @Test
+    fun `sip plus lumpsum uses sip path without overflow`() {
+        val result = FormulaEngine.sipPlusLumpsum(200000.0, 5000.0, 11.0, 120)
+        assertTrue(result.totalValue > result.totalInvested)
+        assertTrue(result.yearlyGrowth.isNotEmpty())
+        assertTrue(result.yearlyGrowth.all { it.value.isFinite() })
+    }
+
+    @Test
+    fun `savings goal returns finite required values`() {
+        val result = FormulaEngine.savingsGoal(5000000.0, 10.0, 180)
+        assertTrue(result.requiredMonthlyInvestment.isFinite())
+        assertTrue(result.requiredLumpsumToday.isFinite())
+        assertTrue(result.yearlyGrowth.all { it.value.isFinite() })
     }
 }

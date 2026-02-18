@@ -22,7 +22,9 @@ class WhatIfContainerFragment : BaseFragment(R.layout.fragment_what_if) {
         _binding = FragmentWhatIfBinding.bind(view)
 
         binding.btnCompare.setOnClickListener {
-            val type = CalculatorType.valueOf(arguments?.getString("calculatorType") ?: CalculatorType.SIP.name)
+            val type = runCatching {
+                CalculatorType.valueOf(arguments?.getString("calculatorType") ?: CalculatorType.SIP.name)
+            }.getOrDefault(CalculatorType.SIP)
             val a1 = binding.etA1.text?.toString()?.toDoubleOrNull() ?: 0.0
             val b1 = binding.etB1.text?.toString()?.toDoubleOrNull() ?: 0.0
             val c1 = binding.etC1.text?.toString()?.toDoubleOrNull() ?: 0.0
@@ -39,9 +41,11 @@ class WhatIfContainerFragment : BaseFragment(R.layout.fragment_what_if) {
         }
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.planValues.collect { (a, b) ->
-                if (a <= 0.0 && b <= 0.0) return@collect
-                val setA = LineDataSet(listOf(Entry(1f, a.toFloat()), Entry(2f, a.toFloat())), "Plan A")
-                val setB = LineDataSet(listOf(Entry(1f, b.toFloat()), Entry(2f, b.toFloat())), "Plan B")
+                val safeA = a.takeIf { it.isFinite() } ?: 0.0
+                val safeB = b.takeIf { it.isFinite() } ?: 0.0
+                if (safeA <= 0.0 && safeB <= 0.0) return@collect
+                val setA = LineDataSet(listOf(Entry(1f, safeA.toFloat()), Entry(2f, safeA.toFloat())), "Plan A")
+                val setB = LineDataSet(listOf(Entry(1f, safeB.toFloat()), Entry(2f, safeB.toFloat())), "Plan B")
                 setA.color = android.graphics.Color.parseColor("#1A73E8")
                 setB.color = android.graphics.Color.parseColor("#34A853")
                 binding.lineChartCompare.data = LineData(setA, setB)

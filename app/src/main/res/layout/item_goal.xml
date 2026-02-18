@@ -3,32 +3,38 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
-    app:cardCornerRadius="12dp">
+    android:layout_marginHorizontal="4dp"
+    android:layout_marginVertical="4dp"
+    style="@style/Widget.FinCalc.Card"
+    app:cardElevation="0dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="12dp">
+        android:padding="14dp"
+        android:gravity="center_vertical">
 
         <com.google.android.material.progressindicator.CircularProgressIndicator
             android:id="@+id/progressGoal"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:indeterminate="false"
-            android:max="100" />
+            android:max="100"
+            app:indicatorColor="@color/secondary"
+            app:trackColor="@color/surface_variant"
+            app:trackThickness="4dp" />
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="12dp"
             android:orientation="vertical">
 
-            <TextView android:id="@+id/tvGoalName" android:layout_width="match_parent" android:layout_height="wrap_content" android:textStyle="bold" />
-            <TextView android:id="@+id/tvGoalProgress" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4dp" />
-            <TextView android:id="@+id/tvGoalNeed" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4dp" />
+            <TextView android:id="@+id/tvGoalName" android:layout_width="match_parent" android:layout_height="wrap_content" android:textSize="14sp" android:fontFamily="sans-serif-medium" android:textColor="@color/text_primary" />
+            <TextView android:id="@+id/tvGoalProgress" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:textSize="12sp" android:textColor="@color/text_secondary" />
+            <TextView android:id="@+id/tvGoalNeed" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:textSize="12sp" android:textColor="@color/text_hint" />
         </LinearLayout>
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

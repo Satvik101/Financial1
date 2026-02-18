@@ -35,7 +35,13 @@ class CalculatorCardAdapter(
         fun bind(item: CalculatorCardItem) {
             binding.tvName.text = item.name
             binding.tvDescription.text = item.description
-            binding.root.strokeColor = Color.parseColor(item.accentColorHex)
+            try {
+                val color = Color.parseColor(item.accentColorHex)
+                binding.accentStrip.setBackgroundColor(color)
+                binding.root.strokeColor = color
+            } catch (_: Exception) {
+                // use default color
+            }
             binding.root.setOnClickListener { onClick(item) }
         }
     }

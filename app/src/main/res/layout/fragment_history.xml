@@ -16,18 +16,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="20dp"
-            android:paddingBottom="12dp"
+            android:paddingHorizontal="16dp"
+            android:paddingTop="14dp"
+            android:paddingBottom="8dp"
             app:layout_scrollFlags="scroll|enterAlways">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="History"
-                android:fontFamily="sans-serif-black"
-                android:textSize="32sp"
+                android:fontFamily="sans-serif-medium"
+                android:textSize="22sp"
+                android:letterSpacing="-0.02"
                 android:textColor="@color/text_primary"
-                android:layout_marginBottom="16dp"/>
+                android:layout_marginBottom="12dp"/>
 
             <HorizontalScrollView
                 android:layout_width="match_parent"
