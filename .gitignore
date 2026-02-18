@@ -1,0 +1,25 @@
+# Gradle
+.gradle/
+build/
+**/build/
+
+# Local configuration
+local.properties
+
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# OS / temp
+.DS_Store
+Thumbs.db
+
+# Tooling cache / distributions
+.tools/
+
+# Logs
+*.log
+
+# Workspace temp file
+tmpclaude-*

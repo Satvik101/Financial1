@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="compounding_frequency_options">
+        <item>Monthly</item>
+        <item>Quarterly</item>
+        <item>Half-Yearly</item>
+        <item>Yearly</item>
+    </string-array>
+
+    <string-array name="age_group_options">
+        <item>Below 60</item>
+        <item>60-80</item>
+        <item>Above 80</item>
+    </string-array>
+
+    <string-array name="currency_options">
+        <item>₹</item>
+        <item>$</item>
+        <item>€</item>
+        <item>£</item>
+    </string-array>
+</resources>

@@ -1,0 +1,117 @@
+[versions]
+# ── SDK ──
+minSdk                  = "24"
+targetSdk               = "34"
+compileSdk              = "34"
+
+# ── Kotlin / Core ──
+kotlin                  = "1.9.22"
+ksp                     = "1.9.22-1.0.17"
+agp                     = "8.2.2"
+coreKtx                 = "1.12.0"
+coroutines              = "1.7.3"
+
+# ── Lifecycle / ViewModel ──
+lifecycle               = "2.7.0"
+
+# ── Navigation ──
+navigation              = "2.7.7"
+
+# ── Room ──
+room                    = "2.6.1"
+
+# ── UI / Material ──
+appcompat               = "1.6.1"
+material                = "1.11.0"
+constraintlayout        = "2.1.4"
+recyclerview            = "1.3.2"
+viewpager2              = "1.0.0"
+
+# ── Charts ──
+mpandroidchart          = "v3.1.0"
+
+# ── Ads ──
+playServicesAds         = "22.6.0"
+
+# ── Billing ──
+billing                 = "6.1.0"
+
+# ── Splash ──
+splashscreen            = "1.0.1"
+
+# ── Testing ──
+junit                   = "4.13.2"
+junitExt                = "1.1.5"
+espresso                = "3.5.1"
+coroutinesTest          = "1.7.3"
+archCoreTesting         = "2.2.0"
+
+# ── Gson (for serialising inputs/results to JSON in Room) ──
+gson                    = "2.10.1"
+
+
+[libraries]
+# ── Core ──
+androidx-core-ktx           = { group = "androidx.core",              name = "core-ktx",                   version.ref = "coreKtx" }
+kotlinx-coroutines-android  = { group = "org.jetbrains.kotlinx",     name = "kotlinx-coroutines-android",  version.ref = "coroutines" }
+kotlinx-coroutines-core     = { group = "org.jetbrains.kotlinx",     name = "kotlinx-coroutines-core",     version.ref = "coroutines" }
+
+# ── Lifecycle ──
+androidx-lifecycle-viewmodel = { group = "androidx.lifecycle",        name = "lifecycle-viewmodel-ktx",     version.ref = "lifecycle" }
+androidx-lifecycle-runtime   = { group = "androidx.lifecycle",        name = "lifecycle-runtime-ktx",       version.ref = "lifecycle" }
+androidx-lifecycle-livedata  = { group = "androidx.lifecycle",        name = "lifecycle-livedata-ktx",      version.ref = "lifecycle" }
+
+# ── Navigation ──
+androidx-navigation-fragment = { group = "androidx.navigation",      name = "navigation-fragment-ktx",     version.ref = "navigation" }
+androidx-navigation-ui       = { group = "androidx.navigation",      name = "navigation-ui-ktx",           version.ref = "navigation" }
+
+# ── Room ──
+androidx-room-runtime        = { group = "androidx.room",            name = "room-runtime",                version.ref = "room" }
+androidx-room-ktx            = { group = "androidx.room",            name = "room-ktx",                    version.ref = "room" }
+androidx-room-compiler       = { group = "androidx.room",            name = "room-compiler",               version.ref = "room" }      # ksp
+
+# ── UI / Material ──
+androidx-appcompat           = { group = "androidx.appcompat",       name = "appcompat",                   version.ref = "appcompat" }
+google-material              = { group = "com.google.android.material", name = "material",                 version.ref = "material" }
+androidx-constraintlayout    = { group = "androidx.constraintlayout", name = "constraintlayout",           version.ref = "constraintlayout" }
+androidx-recyclerview         = { group = "androidx.recyclerview",    name = "recyclerview",                version.ref = "recyclerview" }
+androidx-viewpager2          = { group = "androidx.viewpager2",      name = "viewpager2",                  version.ref = "viewpager2" }
+
+# ── Splash ──
+androidx-splashscreen        = { group = "androidx.core",            name = "core-splashscreen",           version.ref = "splashscreen" }
+
+# ── Charts ──
+mpandroidchart               = { group = "com.github.PhilJay",      name = "MPAndroidChart",              version.ref = "mpandroidchart" }
+
+# ── Ads ──
+google-play-services-ads     = { group = "com.google.android.gms",  name = "play-services-ads",           version.ref = "playServicesAds" }
+
+# ── Billing ──
+google-billing               = { group = "com.android.billingclient", name = "billing-ktx",               version.ref = "billing" }
+
+# ── Gson ──
+google-gson                  = { group = "com.google.code.gson",    name = "gson",                        version.ref = "gson" }
+
+# ── Testing ──
+junit                        = { group = "junit",                   name = "junit",                       version.ref = "junit" }
+androidx-junit-ext           = { group = "androidx.test.ext",        name = "junit",                       version.ref = "junitExt" }
+androidx-espresso-core       = { group = "androidx.test.espresso",   name = "espresso-core",               version.ref = "espresso" }
+kotlinx-coroutines-test      = { group = "org.jetbrains.kotlinx",   name = "kotlinx-coroutines-test",     version.ref = "coroutinesTest" }
+androidx-arch-core-testing   = { group = "androidx.arch.core",       name = "core-testing",                version.ref = "archCoreTesting" }
+androidx-room-testing        = { group = "androidx.room",            name = "room-testing",                version.ref = "room" }
+
+
+[bundles]
+lifecycle   = ["androidx-lifecycle-viewmodel", "androidx-lifecycle-runtime", "androidx-lifecycle-livedata"]
+navigation  = ["androidx-navigation-fragment", "androidx-navigation-ui"]
+room        = ["androidx-room-runtime", "androidx-room-ktx"]
+ui          = ["androidx-appcompat", "google-material", "androidx-constraintlayout", "androidx-recyclerview", "androidx-viewpager2"]
+coroutines  = ["kotlinx-coroutines-core", "kotlinx-coroutines-android"]
+
+
+[plugins]
+android-application  = { id = "com.android.application",           version.ref = "agp" }
+kotlin-android       = { id = "org.jetbrains.kotlin.android",      version.ref = "kotlin" }
+kotlin-parcelize     = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }
+ksp                  = { id = "com.google.devtools.ksp",           version.ref = "ksp" }
+navigation-safeargs  = { id = "androidx.navigation.safeargs.kotlin", version.ref = "navigation" }

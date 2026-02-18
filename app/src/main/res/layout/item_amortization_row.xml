@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="8dp">
+
+    <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Month" />
+    <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="EMI" />
+    <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Principal" />
+    <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Interest" />
+    <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Balance" />
+</LinearLayout>

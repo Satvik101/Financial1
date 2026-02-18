@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">RupeePilot: EMI SIP Tax Calc</string>
+    <string name="hello_greeting">Hello! 👋</string>
+    <string name="search_calculator">Search calculators</string>
+    <string name="no_calculations_yet">No calculations yet</string>
+    <string name="no_goals_yet">No goals yet</string>
+    <string name="tagline">Your Complete Finance Toolkit</string>
+</resources>
